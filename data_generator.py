@@ -16,7 +16,7 @@ def get_data_from_np(fname, data_aug=False):
 
     if data_aug==True:
         shifted_img = img_shift(img_inp, 16)
-        rotated_shifted_img = img_rotate(img_inp, 20)
+        rotated_shifted_img = img_rotate(shifted_img, 20)
         output_img = rotated_shifted_img
     else:
         output_img = img_inp
