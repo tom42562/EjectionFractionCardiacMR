@@ -20,7 +20,7 @@ class normalize_meanstd():
         return y
 
 
-def img_shift(inp_image, shift_range)
+def img_shift(inp_image, shift_range):
     """
     Applies an image shift data augmentation
 
