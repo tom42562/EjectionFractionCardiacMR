@@ -1,12 +1,17 @@
 from keras.models import Model
-from keras.layers import Conv3D, MaxPooling3D, GlobalMaxPooling3D
+from keras.layers import Conv3D, MaxPooling3D, GlobalMaxPooling3D, BatchNormalization, Activation
 from keras.layers import Dense, Dropout, Input
+# remove dropout for first network - drop out is for reducing overfitting
 
 
 def get_model(n_ch=32):
     input = Input(shape=(96, 160, 160, 1))
-    C1_0 = Conv3D(n_ch, (3, 3, 3), padding="valid", activation='relu')(input)
+    C1_0 = Conv3D(n_ch, (3, 3, 3), padding="valid")(input)
+    C1_0 = BatchNormalization()(C1_0)
+    C1_0 = Activation('relu')(C1_0)
     C1_1 = Conv3D(n_ch, (3, 3, 3), padding="valid", activation='relu')(C1_0)
+    C1_0 = BatchNormalization()(C1_0)
+    C1_0 = Activation('relu')(C1_0)
     MP1 = MaxPooling3D(pool_size=(2, 2, 2), strides=(2, 2, 2))(C1_1)
     D1 = Dropout(0.25)(MP1)
 
@@ -31,3 +36,5 @@ def get_model(n_ch=32):
 
 
 
+def conv_block(inp):
+    
